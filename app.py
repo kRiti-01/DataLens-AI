@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-#from analysis.profiler import dataset_overview
+from analysis.profiler import dataset_overview
 from analysis.cleaner import missing_values, duplicate_rows, missing_value_percentage
 from analysis.outliers import detect_outliers
+from ai.analyzer import build_dataset_summary
 
 st.set_page_config(
     page_title="DataLens AI",
@@ -24,3 +25,7 @@ if uploaded_file:
     missing_value_percentage(df)
     duplicate_rows(df)
     detect_outliers(df)
+
+    summary= build_dataset_summary(df)
+    st.subheader("AI analysis")
+    st.json(summary)
